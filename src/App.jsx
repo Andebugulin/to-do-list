@@ -23,9 +23,9 @@ const DeleteSign = ({ onDelete }) => (
 
 const AccomplishedSign = ({ completed, onToggle }) => (
   completed ? (
-    <img src="src/complete.png" alt="Complete" onClick={onToggle} style={{ width: '30px', height: '30px', cursor: 'pointer' }} />
+    <img src="src/incomplete.png" alt="Complete" onClick={onToggle} style={{ width: '30px', height: '30px', cursor: 'pointer'}} />
   ) : (
-    <img src="src/incomplete.png" alt="Incomplete" onClick={onToggle} style={{ width: '30px', height: '30px', cursor: 'pointer' }} />
+    <img src="src/complete.png" alt="Incomplete" onClick={onToggle} style={{ width: '30px', height: '30px', cursor: 'pointer'}} />
   )
 );
 
@@ -86,29 +86,32 @@ const App = () => {
   return (
     <div style={{ 
       maxWidth: '600px',
-      margin: '0 auto',
+      margin: '20px auto',
       padding: '20px',
       backgroundColor: '#010409',
       borderRadius: '8px',
       boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.1)',
-      position: 'absolute',
-      top: '50%',
+      position: 'absolute',  
+      top: '0',          
       left: '50%',
-      transform: 'translate(-50%, -50%)'
-    }}>
+      transform: 'translateX(-50%)',
+    }} >
+      
       <h1 style={{ textAlign: 'center', color: '#333' }}>To-Do List</h1>
       <AddTaskForm onAdd={addTask} />
       {tasks.map((task) => (
         <TaskFrame key={task.id}>
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
             <div style={{ display: 'flex', alignItems: 'center' }}>
-              <EditSign onEdit={() => editTask(task.id, prompt('Edit your task:', task.text))} />
-              <DeleteSign onDelete={() => deleteTask(task.id)} />
               <AccomplishedSign completed={task.completed} onToggle={() => toggleComplete(task.id)} />
             </div>
-            <div style={{ marginTop: '10px', padding: '5px', borderRadius: '4px', backgroundColor: task.completed ? '#4CA33333' : '#411', flexGrow: 1, marginLeft: '10px' }}>
+            <div style={{ marginTop: '10px', padding: '5px', borderRadius: '4px', backgroundColor: task.completed ? '#4CA33333' : '#411', flexGrow: 1, marginLeft: '10px', marginBottom: '10px' }}>
               {task.text}
             </div>
+            <div style={{ display: 'flex', alignItems: 'right', marginLeft: '10px' }}>
+            <EditSign onEdit={() => editTask(task.id, prompt('Edit your task:', task.text))} />
+              <DeleteSign onDelete={() => deleteTask(task.id)} />
+              </div>
           </div>
         </TaskFrame>
       ))}
